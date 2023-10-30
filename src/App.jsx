@@ -5,7 +5,7 @@ import './styles/App.css'
 import SearchBar from './components/SearchBar'
 
 var App = () => {
-  
+  const [search, setSearch] = useState("");
 
   return (
     <>
