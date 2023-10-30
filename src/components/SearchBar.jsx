@@ -138,9 +138,12 @@ const SearchBar = ({submitSearch}) => {
                         id="legislationStatus" 
                         placeholder="Status" 
                         value={searchStatus} 
-                        onChange={(e) => {setSearchStatus(e.target.value)}}>
+                        onChange={(e) => {setSearchStatus(e.target.value)}}
+                    >
+                        <option id="statusIntroduced" value="introduced">Introduced</option>
                         <option id="statusPassed" value="passed">Passed</option>
                         <option id="statusActive" value="active">Active</option>
+                        <option id="statusEnacted" value="enacted">Enacted</option>
                     </select>
                 </div>
             }
