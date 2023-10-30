@@ -13,8 +13,8 @@ var App = () => {
   }
 
   const toggleScopeStateSelected = (event) => {
-    console.log(event)
-    toggleStateSelect(event.value === "state"
+    console.log(event.target.value)
+    toggleStateSelect(event.target.value === "state"
       ? true : false);
   }
 
@@ -30,7 +30,7 @@ var App = () => {
           <input type = "submit" id="searchBarSubmit" value="Search"></input>
           <input type = "button" id="searchBarFilterToggle" onClick={()=>{toggleSearchFilters()}} value="Filters"></input>
           {filtersToggled && <div id = "searchBarFilters">
-              <select id="legislationScope" placeholder="Scope" onChange={(e) => {toggleStateSelect(e)}}>
+              <select id="legislationScope" placeholder="Scope" onChange={(e) => {toggleScopeStateSelected(e)}}>
                 <option id="scopeNational" value="national">National</option>
                 <option id="scopeState" value="state">State</option>
               </select>
