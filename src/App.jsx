@@ -25,8 +25,8 @@ const App = () => {
     <>
       <div className="header">
         <h1>Nudge</h1>
+        <SearchBar submitSearch={submitSearch}/>
       </div>
-      <SearchBar submitSearch={submitSearch}/>
       {results &&
         <ResultsList results={results[0]}/>
       }

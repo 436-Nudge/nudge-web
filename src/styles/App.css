@@ -1,0 +1,27 @@
+:root {
+    background-color: #ffbdbd;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1 {
+    margin: 10px;
+    color: red;
+}
+input, select {
+    margin: 10px;
+}
+.header {
+    float:left;
+}
+.searchResults {
+    float: right;
+    max-width: 600px;
+    margin:10px;
+    padding: 10px 100px;
+    background-color: white;
+}
+.searchResults::after {
+    clear:both;
+}
+.searchResults .result {
+    margin-top: 75px;
+}
