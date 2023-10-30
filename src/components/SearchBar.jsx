@@ -6,8 +6,8 @@ import React, {useState} from 'react'
  * the user might have selected.
  */
 class LegislationSearch {
-    constructor(searchString, status = null, year = 2023, scope = null, state = null) {
-        this.searchString = searchString;
+    constructor(input, status = null, year = 2023, scope = null, state = null) {
+        this.input = input;
         this.status = status;
         this.scope = scope;
         this.state = state;
@@ -37,8 +37,9 @@ const SearchBar = ({submitSearch}) => {
 
     const submitSearchParameters = (e) => {
         e.preventDefault();
-        console.log(new LegislationSearch(searchInput, searchStatus, searchYear, searchScope, searchUSAState));
-        //submitSearch(Search)
+        var newSearch = new LegislationSearch(searchInput, searchStatus, searchYear, searchScope, searchUSAState);
+        console.log(newSearch);
+        submitSearch(newSearch)
     }
 
     return (
@@ -148,4 +149,4 @@ const SearchBar = ({submitSearch}) => {
     )
 }
 
-export default SearchBar
+export {SearchBar, LegislationSearch};

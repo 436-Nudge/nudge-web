@@ -1,21 +1,25 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './styles/App.css'
-import SearchBar from './components/SearchBar'
+import { SearchBar } from './components/SearchBar'
 
-var App = () => {
-  const [search, setSearch] = useState("");
+const App = () => {
+  const [search, setSearch] = useState(null)
+
+  const submitSearch = (search) => {
+    setSearch(search);
+  }
 
   return (
     <>
-      <div>
+      <div className="header">
         <h1>Nudge</h1>
-        <p>Make the System Work for You</p>
       </div>
-      <SearchBar/>
+      <SearchBar submitSearch={submitSearch}/>
+      {search && <p>
+        {search.input}
+      </p>}
     </>
-  );
+  )
 }
 
 export default App
