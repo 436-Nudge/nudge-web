@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 const Result = ({result}) => {
   const [viewSummary, toggleViewSummary] = useState(false);
   return (
-    <div className = "result">
+    <div className = "searchResult">
       <h2>{result.short_title}</h2>
       <p><i>{result.bill_id}</i></p>
       <p>Subject: {result.primary_subject}</p>

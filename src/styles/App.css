@@ -1,36 +1,55 @@
+* {
+    box-sizing: border-box;
+}
 :root {
     background-color: #ffbdbd;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    --app-font-size: 16px;
+}
+body {
+    margin: 0;
 }
 h1 {
-    margin: 10px;
     color: red;
-}
-input, select {
-    margin: 10px;
-}
-label {
-    margin-left: 10px;
 }
 label + input, label + select {
     margin-left: 5px;
 }
 .header {
-    float:left;
+    padding: 10px 2.5vw
 }
-.searchResults {
-    float: right;
-    width: 600px;
-    margin:10px;
-    padding: 10px 100px;
+.searchBar {
+    border-bottom: 1px solid black;
+}
+
+.search, .summary {
+    width: 45vw;
+    margin: 0 2.5vw;
+    box-sizing: border-box;
     background-color: white;
+    display: inline-block;
+    vertical-align:top;
 }
-.searchResults::after {
-    clear:both;
+.summary {
+    background-color: white;
+    position:sticky;
+    top: 2.5vw;
+    right:0;
+    padding: 10px 2vw;
 }
-.searchResults .result {
+
+.searchBar, .searchResults {
+    padding: 10px 2vw;
+}
+
+.searchResult + .searchResult {
     margin-top: 75px;
 }
-.result .result-summary {
+.SearchResult .result-summary {
     color: #404040;
+}
+input, button, select, option, p {
+    font-size: var(--app-font-size);
 }

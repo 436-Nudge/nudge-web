@@ -2,10 +2,12 @@ import { useState } from 'react'
 import './styles/App.css'
 import { SearchBar } from './components/SearchBar'
 import ResultsList from './components/ResultsList'
+import SelectedResult from './components/SelectedResult'
 
 const App = () => {
-  const [search, setSearch] = useState(null)
-  const [results, setResults] = useState(null)
+  const [search, setSearch] = useState(null);
+  const [results, setResults] = useState(null);
+  const [selectedResult, setSelectedResult] = useState(null);
 
   const submitSearch = (search) => {
     setSearch(search);
@@ -21,15 +23,26 @@ const App = () => {
     setResults(newResults.results);
   }
 
+  const selectResult = (result) => {
+    setSelectedResult(result);
+  }
+
   return (
     <>
       <div className="header">
         <h1>Nudge</h1>
-        <SearchBar submitSearch={submitSearch}/>
       </div>
-      {results &&
-        <ResultsList results={results[0]}/>
-      }
+      <div className="main">
+        <div className="search">
+          <SearchBar submitSearch={submitSearch}/>
+          {results &&
+            <ResultsList results={results[0]}/>
+          }
+        </div>
+        <div className="summary">
+          <SelectedResult result={selectedResult}/>
+        </div>
+      </div>
     </>
   )
 }
