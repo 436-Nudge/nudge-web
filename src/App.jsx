@@ -7,6 +7,7 @@ import SelectedResult from './components/SelectedResult'
 const App = () => {
   const [search, setSearch] = useState(null);
   const [results, setResults] = useState(null);
+  const [isResultSelected, setResultSelected] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
 
   const submitSearch = (search) => {
