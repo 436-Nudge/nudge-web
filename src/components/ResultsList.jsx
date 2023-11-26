@@ -9,11 +9,17 @@ import Result from "./Result";
  * @param {*} results list of results containing *titles, descriptions*, and *summaries*
  *            at the very least.
  */
-const ResultsList = ({results}) => {
+const ResultsList = ({results, selectResult}) => {
   return (
     <div className='searchResults'>
     {results.bills.map((result) => {
-        return <Result key = {result.bill_id} result={result}/>
+        return (
+          <Result 
+            key = {result.bill_id} 
+            result={result}
+            selectResult={selectResult}
+          />
+        );
       })
     }
     </div>

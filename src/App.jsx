@@ -36,7 +36,13 @@ const App = () => {
   }
 
   const selectResult = (result) => {
+    setResultSelected(true);
     setSelectedResult(result);
+  }
+
+  const removeSelection = () => {
+    setResultSelected(false);
+    setSelectedResult(null);
   }
 
   return (
@@ -46,11 +52,24 @@ const App = () => {
       </div>
       <div className="main">
         <div className="search">
-          <SearchBar submitSearch={submitSearch}/>
-          {results &&
-            <ResultsList results={results[0]}/>
+          {!isResultSelected 
+          ? <>
+              <SearchBar submitSearch={submitSearch}/>
+              {results &&
+                <ResultsList 
+                  results={results[0]}
+                  selectResult={selectResult}
+                />
+              }
+            </>
+          :
+            <div className = "demographics-view">
+              <div>
+                <button onClick={() => removeSelection()}>Back to Results</button>
+              </div>
+              <SelectDemographics submit={submitDemographics}/>
+            </div>
           }
-          <SelectDemographics submit={submitDemographics}/>
         </div>
         <div className="summary">
           <SelectedResult result={selectedResult}/>

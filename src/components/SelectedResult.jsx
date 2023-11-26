@@ -16,7 +16,11 @@ const SelectedResult = ({result}) => {
         <h2>Legislation Summary</h2>
         {result 
             ? <>
-                <p>result.</p>
+                <h2>{result.short_title}</h2>
+                <h3>AKA {result.title}</h3>
+                <p><i>{result.bill_id}</i></p>
+                <p>Subject: {result.primary_subject}</p>
+                <p>{result.summary}</p>
             </>
             : <>
                 <p>Looks like you haven't selected lesgislation.</p>
