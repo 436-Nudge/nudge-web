@@ -3,6 +3,7 @@ import './styles/App.css'
 import { SearchBar } from './components/SearchBar'
 import ResultsList from './components/ResultsList'
 import SelectedResult from './components/SelectedResult'
+import SelectDemographics from './components/SelectDemographics'
 
 const App = () => {
   const [search, setSearch] = useState(null);
@@ -10,6 +11,11 @@ const App = () => {
   const [isResultSelected, setResultSelected] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
 
+  /**
+   * Based on user input filters, searched ProPublica's congress api for
+   * 
+   * @param {*} search 
+   */
   const submitSearch = (search) => {
     setSearch(search);
     var httpGet = new XMLHttpRequest();
@@ -22,6 +28,11 @@ const App = () => {
     var newResults = JSON.parse(httpGet.responseText);
     console.log(newResults);
     setResults(newResults.results);
+  }
+
+
+  const submitDemographics = (demographics) => {
+    console.log(demographics);
   }
 
   const selectResult = (result) => {
@@ -39,6 +50,7 @@ const App = () => {
           {results &&
             <ResultsList results={results[0]}/>
           }
+          <SelectDemographics submit={submitDemographics}/>
         </div>
         <div className="summary">
           <SelectedResult result={selectedResult}/>
