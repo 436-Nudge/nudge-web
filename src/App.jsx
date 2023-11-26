@@ -21,7 +21,8 @@ const App = () => {
     var httpGet = new XMLHttpRequest();
     var key = "1DDfqiBG47iHDqDcWjJn26LV5uB4ztETWH2Lj5eR";
     var status = search.status ? search.status : "enacted";
-    var url = "https://api.propublica.org/congress/v1/116/both/bills/" + status + ".json";
+    var chamber = search.chamber;
+    var url = "https://api.propublica.org/congress/v1/" + search.congress+"/"+ chamber + "/bills/" + status + ".json";
     httpGet.open("GET", url, false);
     httpGet.setRequestHeader("X-API-Key",key);
     httpGet.send( null );

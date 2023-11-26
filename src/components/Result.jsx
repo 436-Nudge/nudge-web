@@ -10,13 +10,13 @@ import React, {useState} from 'react'
 const Result = ({result, selectResult}) => {
   return (
     <div className = "searchResult">
-      <h2>{result.short_title}</h2>
+      <h3>{result.short_title}</h3>
       <p><i>{result.bill_id}</i></p>
       <p>Subject: {result.primary_subject}</p>
       <button
         className='select-result'
         onClick={() => selectResult(result)}
-      >Select Result</button>
+      >Select Legislation</button>
     </div>
   )
 }

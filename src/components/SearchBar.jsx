@@ -10,11 +10,11 @@ import React, {useState} from 'react'
  * used.
  */
 class LegislationSearch {
-    constructor(input, status = null, year = 2023, chamber = "both") {
+    constructor(input, status = null, congress = 117, chamber = "both") {
         this.input = input;
         this.status = status;
         this.chamber = chamber;
-        this.year = year;
+        this.congress = congress;
     }
 }
 
@@ -29,7 +29,7 @@ const SearchBar = ({submitSearch}) => {
     const [searchInput, setSearchInput] = useState("");
     const [searchStatus, setSearchStatus] = useState(undefined);
     const [searchChamber, setSearchChamber] = useState("both");
-    const [searchYear, setSearchYear] = useState(2023);
+    const [searchCongress, setSearchCongress] = useState(117);
 
     const toggleSearchFilters = () => {
         toggleFilters(!filtersToggled)
@@ -41,7 +41,7 @@ const SearchBar = ({submitSearch}) => {
 
     const submitSearchParameters = (e) => {
         e.preventDefault();
-        var newSearch = new LegislationSearch(searchInput, searchStatus, searchYear, searchChamber);
+        var newSearch = new LegislationSearch(searchInput, searchStatus, searchCongress, searchChamber);
         console.log(newSearch);
         submitSearch(newSearch)
     }
@@ -71,14 +71,14 @@ const SearchBar = ({submitSearch}) => {
 
                     <div>
                         {/* LEGISLATION YEAR (Year introduced or Passed) */}
-                        <label htmlFor="legislationYear">Year:</label>
+                        <label htmlFor="legislationCongress">Congress:</label>
                         <input 
                             type="number" 
-                            id="legislationYear" 
-                            placeholder="Year" 
-                            value={searchYear} 
-                            onChange={(e)=>{setSearchYear(e.target.value)}}
-                            min="1776" max="2024"
+                            id="legislationCongress" 
+                            placeholder="Congress" 
+                            value={searchCongress} 
+                            onChange={(e)=>{setSearchCongress(e.target.value)}}
+                            min="113" max="117"
                         ></input>
                     </div>
                     <div>

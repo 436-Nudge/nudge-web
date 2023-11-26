@@ -35,6 +35,7 @@ const SelectDemographics = ({submit}) => {
                     type="text" 
                     id="demographic-input" 
                     onChange={(e)=>{setDemographics(e.target.value)}}
+                    placeholder="Student, Business Owner, etc."
                     value={demographics}
                 />
                 <button type="submit" value="Submit">Submit</button>
