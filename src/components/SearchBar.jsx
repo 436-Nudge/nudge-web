@@ -1,9 +1,13 @@
 import React, {useState} from 'react'
 
 /**
- * SEARCH CLASS
+ * # SEARCH CLASS
+ * 
  * This class represents a single search input by the user, including any filters
- * the user might have selected.
+ * the user might have selected. 
+ * 
+ * If the user did not filter the search, the default values for each filter are
+ * used.
  */
 class LegislationSearch {
     constructor(input, status = null, year = 2023, chamber = "both") {
@@ -14,6 +18,12 @@ class LegislationSearch {
     }
 }
 
+/**
+ * Legislation search bar containing filters for general search, year, chamber, and status.
+ * 
+ * @param {*} submitSearch reference to function that submits the search in the app
+ * and calls the api. 
+ */
 const SearchBar = ({submitSearch}) => {
     const [filtersToggled, toggleFilters] = useState(false);
     const [searchInput, setSearchInput] = useState("");

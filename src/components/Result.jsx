@@ -1,5 +1,11 @@
 import React, {useState} from 'react'
 
+/**
+ * Single result from searching for legislation, containing the title and a short description,
+ * with an option to view a full summary and select it to analyze.
+ * 
+ * @param {*} result object containing bill information such as title, description, summary, status, etc.
+ */
 const Result = ({result}) => {
   const [viewSummary, toggleViewSummary] = useState(false);
   return (
