@@ -12,18 +12,18 @@ import React from 'react'
  */
 const SelectedResult = ({result}) => {
   return (
-    <>
+    <div className = "selected-legislation">
         <h2>Legislation Summary</h2>
         {result 
             ? <>
-                <p>Result Goes Here</p>
+                <p>result.</p>
             </>
             : <>
                 <p>Looks like you haven't selected lesgislation.</p>
                 <p><em>Click "Select Bill" on legislation to learn more.</em></p>
             </>
         }
-    </>
+    </div>
   )
 }
 

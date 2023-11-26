@@ -61,7 +61,7 @@ const SearchBar = ({submitSearch}) => {
                 {filtersToggled && <div id = "searchBarFilters">
                     <div>
                         {/* LEGISLATION CHAMBER (Senate, House, or Both) */}
-                        <label for="legislationChamber">Chamber:</label>
+                        <label htmlFor="legislationChamber">Chamber:</label>
                         <select id="legislationChamber" placeholder="Scope" value={searchChamber} onChange={(e) => {setChamber(e)}}>
                             <option id="chamberBoth" value="both">Both</option>
                             <option id="chamberSenate" value="senate">Senate</option>
@@ -71,7 +71,7 @@ const SearchBar = ({submitSearch}) => {
 
                     <div>
                         {/* LEGISLATION YEAR (Year introduced or Passed) */}
-                        <label for="legislationYear">Year:</label>
+                        <label htmlFor="legislationYear">Year:</label>
                         <input 
                             type="number" 
                             id="legislationYear" 
@@ -83,7 +83,7 @@ const SearchBar = ({submitSearch}) => {
                     </div>
                     <div>
                         {/* LEGISLATION STATUS (Introduced, Active, Passed, Failed, etc.) */}
-                        <label for="legislationStatus">Status:</label>
+                        <label htmlFor="legislationStatus">Status:</label>
                         <select 
                             id="legislationStatus" 
                             placeholder="Status" 
