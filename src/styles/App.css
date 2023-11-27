@@ -40,7 +40,7 @@ label + input, label + select {
     padding: 10px 2vw;
 }
 
-.searchBar, .searchResults {
+.searchBar, .searchResults, .demographics-view {
     padding: 10px 2vw;
 }
 

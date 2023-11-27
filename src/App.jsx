@@ -31,19 +31,7 @@ const App = () => {
           let eventData = JSON.parse(event.data);
           if (eventData && eventData.token) {
               // Session token is received here
-            	receivedToken.current = eventData.token;
-				if(selectedResult) {
-					let title = selectedResult.title;
-					let summary = selectedResult.summary;
-					let documentJSON = JSON.stringify({
-						"token": receivedToken.current, 
-						"documents":
-							{
-								title: summary
-						}
-					});
-					connection.current.send(documentJSON);
-				}
+            	sendToAI(eventData.token);
 
           } else if (eventData && eventData.response) {
               // Display the response from the JSON message
@@ -81,6 +69,21 @@ const App = () => {
     setResults(newResults.results);
   }
 
+  const sendToAI = (token) => {
+	console.log(selectedResult);
+	if(selectedResult) {
+		let docTitle = selectedResult.title;
+		let docSummary = selectedResult.summary;
+		let documentJSON = JSON.stringify({
+			"token": token, 
+			"documents":
+				{
+					docTitle: docSummary
+			}
+		});
+		connection.current.send(documentJSON);
+	}
+  }
 
   const submitDemographics = (demographics) => {
     console.log(demographics);
@@ -90,13 +93,17 @@ const App = () => {
   }
 
   const selectResult = (result) => {
+	console.log("Selected Result:");
+	console.log(result);
     setResultSelected(true);
     setSelectedResult(result);
+	setAIResponse(null);
   }
 
   const removeSelection = () => {
     setResultSelected(false);
     setSelectedResult(null);
+	setAIResponse(null);
   }
 
   return (
