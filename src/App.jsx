@@ -18,6 +18,8 @@ const App = () => {
 
   // Connect to the server upon startup
   useEffect(() => {
+	if(connection && connection.current)
+		connection.current.close();
     const socket = new WebSocket('ws://localhost:8767');
 
 	// Server is connected
@@ -43,9 +45,9 @@ const App = () => {
       } catch (error) {
           console.error('Invalid', error);
       }
-  });
+  	});
 
-  connection.current = socket;
+  	connection.current = socket;
 
   }, [selectedResult]);
 
