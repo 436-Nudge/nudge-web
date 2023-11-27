@@ -10,8 +10,7 @@ import React, {useState} from 'react'
  * used.
  */
 class LegislationSearch {
-    constructor(input, status = null, congress = 117, chamber = "both") {
-        this.input = input;
+    constructor(status = "introduced", congress = 117, chamber = "both") {
         this.status = status;
         this.chamber = chamber;
         this.congress = congress;
@@ -26,7 +25,6 @@ class LegislationSearch {
  */
 const SearchBar = ({submitSearch}) => {
     const [filtersToggled, toggleFilters] = useState(false);
-    const [searchInput, setSearchInput] = useState("");
     const [searchStatus, setSearchStatus] = useState(undefined);
     const [searchChamber, setSearchChamber] = useState("both");
     const [searchCongress, setSearchCongress] = useState(117);
@@ -49,13 +47,6 @@ const SearchBar = ({submitSearch}) => {
     return (
         <div className='searchBar'>
             <form id = "searchBarForm" onSubmit={(e) => {submitSearchParameters(e)}}>
-                <input 
-                    id="searchBarInput" 
-                    placeholder="Search for Legislation" 
-                    value={searchInput} 
-                    onChange={(e)=>{setSearchInput(e.target.value)}}
-                ></input>
-                <input type = "submit" id="searchBarSubmit" value="Search"></input>
                 {/* Advanced Filters for Legislation */}
                 <input type = "button" id="searchBarFilterToggle" onClick={()=>{toggleSearchFilters()}} value="Filters"></input>
                 {filtersToggled && <div id = "searchBarFilters">
@@ -98,6 +89,7 @@ const SearchBar = ({submitSearch}) => {
                     </div>
                 </div>
             }
+            <input type = "submit" id="searchBarSubmit" value="Search"></input>
         </form>
     </div>
     )
