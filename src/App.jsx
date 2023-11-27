@@ -47,7 +47,8 @@ const App = () => {
 
   connection.current = socket;
 
-  }, []);
+  }, [selectedResult]);
+
 
   /**
    * Based on user input filters, searched ProPublica's congress api for

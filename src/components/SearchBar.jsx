@@ -39,7 +39,7 @@ const SearchBar = ({submitSearch}) => {
 
     const submitSearchParameters = (e) => {
         e.preventDefault();
-        var newSearch = new LegislationSearch(searchInput, searchStatus, searchCongress, searchChamber);
+        var newSearch = new LegislationSearch(searchStatus, searchCongress, searchChamber);
         console.log(newSearch);
         submitSearch(newSearch)
     }
