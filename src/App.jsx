@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './styles/App.css'
 import { SearchBar } from './components/SearchBar'
 import ResultsList from './components/ResultsList'
@@ -10,6 +10,56 @@ const App = () => {
   const [results, setResults] = useState(null);
   const [isResultSelected, setResultSelected] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+
+  const [aiResponse, setAIResponse] = useState(null);
+
+  const connection = useRef(null);
+  const receivedToken = useRef(null);
+
+  // Connect to the server upon startup
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:8767');
+
+	// Server is connected
+    socket.addEventListener('open', function (event) {
+      console.log('Connected to the server');
+    });
+
+
+    socket.addEventListener('message', function (event) {
+      try {
+          let eventData = JSON.parse(event.data);
+          if (eventData && eventData.token) {
+              // Session token is received here
+            	receivedToken.current = eventData.token;
+				if(selectedResult) {
+					let title = selectedResult.title;
+					let summary = selectedResult.summary;
+					let documentJSON = JSON.stringify({
+						"token": receivedToken.current, 
+						"documents":
+							{
+								title: summary
+						}
+					});
+					connection.current.send(documentJSON);
+				}
+
+          } else if (eventData && eventData.response) {
+              // Display the response from the JSON message
+              let receivedResponse = eventData.response;
+
+			  setAIResponse(receivedResponse);
+              
+          }
+      } catch (error) {
+          console.error('Invalid', error);
+      }
+  });
+
+  connection.current = socket;
+
+  }, []);
 
   /**
    * Based on user input filters, searched ProPublica's congress api for
@@ -34,6 +84,9 @@ const App = () => {
 
   const submitDemographics = (demographics) => {
     console.log(demographics);
+	let demographicsJSON = JSON.stringify({"demographics":demographics.toString()});
+	connection.current.send(demographicsJSON);
+	setAIResponse("Awaiting AI Response. . .")
   }
 
   const selectResult = (result) => {
@@ -69,6 +122,10 @@ const App = () => {
                 <button onClick={() => removeSelection()}>Back to Results</button>
               </div>
               <SelectDemographics submit={submitDemographics}/>
+			  {aiResponse && 
+			  	<div>
+					<p>{aiResponse}</p>
+				</div>}
             </div>
           }
         </div>
