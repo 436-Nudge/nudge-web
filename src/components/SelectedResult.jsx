@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 /**
  * SelectedResult shows the legislation selected by the user after searching for bills.
@@ -10,23 +10,30 @@ import React from 'react'
  * @param {*} result object containing information about a specific piece of legislation,
  * including title, description, status, summary, etc. 
  */
-const SelectedResult = ({result}) => {
+const SelectedResult = ({legislation, result}) => {
+
+  const [billSummary, setBillSummary] = useState(null);
+  const congressKey = "b6gPYwO1yERKKXfuZ0V68gUS9BQS4zTEr4FTvOe7";
+
+  useEffect(()=> {
+    console.log("Getting Bill Summary...");
+    var httpGet = new XMLHttpRequest();
+    let infoURL = "https://api.congress.gov/v3/bill/" + legislation.congress + "/" + legislation.chamber + "/" + legislation.bill + "/summaries?api_key=" + congressKey;
+    httpGet.open("GET", infoURL, false);
+    httpGet.send( null );
+    let info = JSON.parse(httpGet.responseText);
+    console.log(info)
+    setBillSummary(info);
+  }, []);
+
   return (
     <div className = "selected-legislation">
         <h2>Legislation Summary</h2>
-        {result 
-            ? <>
-                <h3>{result.short_title}</h3>
-                <h4>AKA {result.title}</h4>
-                <p><i>{result.bill_id}</i></p>
-                <p>Subject: {result.primary_subject}</p>
-                <p>{result.summary}</p>
-            </>
-            : <>
-                <p>Looks like you haven't selected lesgislation.</p>
-                <p><em>Click "Select Legislation" on a specific piece of legislation to view a summary and see how it affects you.</em></p>
-            </>
-        }
+        {billSummary && legislation && <>
+          <h3>{result.title}</h3>
+          <p><i>Congress {result.congress} : {result.originChamber} bill {result.number}</i></p>
+          <div dangerouslySetInnerHTML={{__html: billSummary.summaries[billSummary.summaries.length-1].text}}></div>
+        </>}
     </div>
   )
 }

@@ -25,7 +25,7 @@ label + input, label + select {
 }
 
 .search, .summary {
-    width: 45vw;
+    width: 44vw;
     margin: 0 2.5vw;
     box-sizing: border-box;
     background-color: white;

@@ -9,19 +9,17 @@ import Result from "./Result";
  * @param {*} results list of results containing *titles, descriptions*, and *summaries*
  *            at the very least.
  */
-const ResultsList = ({results, selectResult}) => {
+const ResultsList = ({legislations, selectResult}) => {
   return (
     <div className='searchResults'>
-    {results.bills.map((result) => {
-        return (
-          <Result 
-            key = {result.bill_id} 
-            result={result}
-            selectResult={selectResult}
-          />
-        );
-      })
-    }
+      {legislations.map(legislation => {
+        return (<Result
+          key = {legislation.id} 
+          legislation={legislation}
+          selectResult={selectResult}
+        />
+        )
+      })}
     </div>
   )
 }

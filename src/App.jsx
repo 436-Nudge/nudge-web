@@ -5,21 +5,37 @@ import ResultsList from './components/ResultsList'
 import SelectedResult from './components/SelectedResult'
 import SelectDemographics from './components/SelectDemographics'
 
+class Legislation {
+	constructor(id, congress, chamber, bill) {
+		this.id = id;
+		this.congress = congress;
+		this.chamber = chamber;
+		this.bill = bill;
+	}
+}
+
 const App = () => {
   const [search, setSearch] = useState(null);
   const [results, setResults] = useState(null);
   const [isResultSelected, setResultSelected] = useState(false);
   const [selectedResult, setSelectedResult] = useState(null);
+  const [selectedLegislation, setSelectedLegislation] = useState(null);
+
+  const congressKey = "b6gPYwO1yERKKXfuZ0V68gUS9BQS4zTEr4FTvOe7";
+  const legislations = [
+	new Legislation(1, 118, "hr", 3746),
+	new Legislation(2, 116, "hr", 5717),
+	new Legislation(3, 117, "hr", 3684),
+	new Legislation(4, 118, "hr", 6363)
+  ];
 
   const [aiResponse, setAIResponse] = useState(null);
 
   const connection = useRef(null);
-  const receivedToken = useRef(null);
 
   // Connect to the server upon startup
+  
   useEffect(() => {
-	if(connection && connection.current)
-		connection.current.close();
     const socket = new WebSocket('ws://localhost:8767');
 
 	// Server is connected
@@ -49,7 +65,8 @@ const App = () => {
 
   	connection.current = socket;
 
-  }, [selectedResult]);
+  }, [selectedLegislation]);
+  
 
 
   /**
@@ -57,6 +74,7 @@ const App = () => {
    * 
    * @param {*} search 
    */
+  /*
   const submitSearch = (search) => {
     setSearch(search);
     var httpGet = new XMLHttpRequest();
@@ -71,18 +89,18 @@ const App = () => {
     console.log(newResults);
     setResults(newResults.results);
   }
+  */
 
   const sendToAI = (token) => {
 	console.log(selectedResult);
 	if(selectedResult) {
-		let docTitle = selectedResult.title;
-		let docSummary = selectedResult.summary;
+		let docName = selectedLegislation.title;
 		let documentJSON = JSON.stringify({
 			"token": token, 
-			"documents":
-				{
-					docTitle: docSummary
-			}
+			"documents":{
+				docName: ""
+			},
+			"docID": selectedLegislation.id
 		});
 		connection.current.send(documentJSON);
 	}
@@ -95,17 +113,19 @@ const App = () => {
 	setAIResponse("Awaiting AI Response. . .")
   }
 
-  const selectResult = (result) => {
+  const selectResult = (legislationID, result) => {
 	console.log("Selected Result:");
 	console.log(result);
     setResultSelected(true);
     setSelectedResult(result);
+	setSelectedLegislation(legislations[legislationID-1]);
 	setAIResponse(null);
   }
 
   const removeSelection = () => {
     setResultSelected(false);
     setSelectedResult(null);
+	setSelectedLegislation(null);
 	setAIResponse(null);
   }
 
@@ -117,15 +137,10 @@ const App = () => {
       <div className="main">
         <div className="search">
           {!isResultSelected 
-          ? <>
-              <SearchBar submitSearch={submitSearch}/>
-              {results &&
-                <ResultsList 
-                  results={results[0]}
-                  selectResult={selectResult}
-                />
-              }
-            </>
+          ? <ResultsList 
+            	legislations={legislations}
+                selectResult={selectResult}
+            />
           :
             <div className = "demographics-view">
               <div>
@@ -140,7 +155,14 @@ const App = () => {
           }
         </div>
         <div className="summary">
-          <SelectedResult result={selectedResult}/>
+			{selectedLegislation 
+			? <SelectedResult legislation = {selectedLegislation} result={selectedResult}/>
+			: <>
+				<h2>Legislation Summary</h2>
+				<p>Looks like you haven't selected lesgislation.</p>
+				<p><em>Click "Select Legislation" on a specific piece of legislation to view a summary and see how it affects you.</em></p>
+			</>
+			}
         </div>
       </div>
     </>
